@@ -27,10 +27,9 @@ def register():
 
 @app.route('/login', methods=['POST'])
 def login():
-    ask = request.json
-    # username = request.json['username']
-    # password = request.json['password']
-    user = User.query.filter_by(username=ask['username'],password=ask['password']).first()
+    username = request.json['username']
+    password = request.json['password']
+    user = User.query.filter_by(username=username, password=password).first()
     if user:
         session['user_id'] = user.id
         return jsonify({'message': 'Successfully logged in'})
