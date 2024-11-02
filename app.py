@@ -2,12 +2,17 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask import request, jsonify, session
 from models import db, User, Workout
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 app = Flask(__name__)
+
+API_TOKEN = os.getenv("API_TOKEN")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:9184@localhost:5432/fitdatabase'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'fitness_tracker'
+app.config['SECRET_KEY'] = API_TOKEN
 db.init_app(app)
 migrate = Migrate(app, db)
 
